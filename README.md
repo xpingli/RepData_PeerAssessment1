@@ -6,7 +6,7 @@ output: html_document
 ---
 
 **Load packages**
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(ggplot2)
 library(dplyr)
 library(mice)
@@ -15,6 +15,7 @@ library(Hmisc)
 #With Missing value
 **Load Data**
 ```{r}
+unzip("activity.zip")
 act <- read.csv("activity.csv")
 ```
 Transform the "date":
