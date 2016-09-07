@@ -14,16 +14,16 @@ library(Hmisc)
 ```
 #With Missing value
 **Load Data**
-```{r}
+```{r included=TRUE}
 act <- read.csv("activity.csv")
 ```
 Transform the "date":
-```{r}
+```{r included=TRUE}
 act$date <- as.Date(act$date, "%Y-%m-%d")
 ```
 
 __total number of steps taken per day?__
-```{r}
+```{r included=TRUE}
 sum_step <- act %>%
         group_by(date) %>%
         summarise( total_steps = sum(steps))
@@ -32,18 +32,18 @@ head(sum_step)
 ```
 
 **histogram of total number of steps taken per day**
-```{r}
+```{r histogram of total number, included=TRUE}
 ggplot(sum_step, aes(x = total_steps)) + geom_histogram(aes(y = ..density..),bins = 38) + geom_density()
 ```
 
 **mean and median of the total number of steps taken per day**
-```{r}
+```{r included=TRUE}
 mean_step <- act %>%
         group_by(date) %>%
         summarise( avg_daily = mean(steps))
 head(mean_step)
 ```
-```{r}
+```{r included=TRUE}
 median_step <- act %>% 
         group_by(date) %>%
         summarise( med_daily = median(steps))
@@ -52,19 +52,22 @@ head(median_step)
 ```
 
 **Average of daily activities**
-```{r}
+```{r included=TRUE}
 time_series <- act %>%
         group_by(interval) %>%
         summarise(avg_steps = mean(steps, na.rm = TRUE))
 head(time_series)
 
+```
 
+```{r lineplot on interval}
 ggplot(time_series, aes( x =  interval, y = avg_steps)) + geom_line()
 ```
 
 
+
 **interval having max steps across all the days**
-```{r}
+```{r included=TRUE}
 time_series[which(time_series$avg_steps == max(time_series$avg_steps)), ]
 
 ```
@@ -72,7 +75,7 @@ time_series[which(time_series$avg_steps == max(time_series$avg_steps)), ]
 #Imputing Missing values
 
 **numbers of missing values in the dateset and percentage**
-```{r}
+```{r included=TRUE}
 num_miss <- sum(is.na(act$steps))
 num_miss
 
@@ -81,7 +84,7 @@ perc_miss
 ```
 
 **impute the missing values with "Hmisc"" package**
-```{r}
+```{r included=TRUE}
 act_impute <- act
 
 act_impute$steps <- with(act_impute, impute(steps, mean))
@@ -91,16 +94,17 @@ head(act_impute)
 ```
 
 **histogram of total numbers of steps taken each day**
-```{r}
+```{r included=TRUE}
 sum_step_2 <- act_impute %>%
         group_by(date) %>%
         summarise(total_steps = sum(steps))
-
-ggplot(sum_step_2, aes(x = total_steps)) + geom_histogram(aes(y = ..density..),bins = 38) + geom_density()
-
 ```
+```{r histogram of total numbers}
+ggplot(sum_step_2, aes(x = total_steps)) + geom_histogram(aes(y = ..density..),bins = 38) + geom_density()
+```
+
 **mean and median of the total number of steps taken per day**
-```{r}
+```{r included=TRUE}
 mean_step2 <- act_impute %>%
         group_by(date) %>%
         summarise( avg_steps_daily = mean(steps))
@@ -119,7 +123,7 @@ head(median_step2)
 
 **create a variable containing 2 levels of factors "weekday" and "weekend"**
 
-```{r}
+```{r included=TRUE}
 
 act_impute$day <- weekdays(act_impute$date)
 act_impute$wkdays <- vector(mode = "character", length = 17568)
@@ -136,16 +140,20 @@ act_impute$wkdays <- as.factor(act_impute$wkdays)
 
 ```
 **make a plot to compare "weekday" and "weekend" activiies**
-```{r}
+```{r include=TRUE}
 
 act_time_series <- act_impute %>%
         select(steps, interval, wkdays) %>%
         group_by(interval, wkdays) %>%
         mutate(avg_steps = mean(steps))
 
-ggplot(act_time_series, aes(x = interval, y = avg_steps)) + geom_line() + facet_grid(wkdays~.)
 
 ```
+
+```{r lineplot of two factors}
+ggplot(act_time_series, aes(x = interval, y = avg_steps)) + geom_line() + facet_grid(wkdays~.)
+```
+
 
 
 
