@@ -123,42 +123,15 @@ $(document).ready(function () {
 
 
 <p><strong>Load packages</strong></p>
-<pre class="r"><code>library(ggplot2)</code></pre>
-<pre><code>## Warning: package 'ggplot2' was built under R version 3.2.5</code></pre>
-<pre class="r"><code>library(dplyr)</code></pre>
-<pre><code>## Warning: package 'dplyr' was built under R version 3.2.5</code></pre>
-<pre><code>## 
-## Attaching package: 'dplyr'</code></pre>
-<pre><code>## The following objects are masked from 'package:stats':
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>library(mice)</code></pre>
-<pre><code>## Warning: package 'mice' was built under R version 3.2.5</code></pre>
-<pre><code>## Loading required package: Rcpp</code></pre>
-<pre><code>## Warning: package 'Rcpp' was built under R version 3.2.5</code></pre>
-<pre><code>## mice 2.25 2015-11-09</code></pre>
-<pre class="r"><code>library(Hmisc)</code></pre>
-<pre><code>## Warning: package 'Hmisc' was built under R version 3.2.5</code></pre>
-<pre><code>## Loading required package: lattice</code></pre>
-<pre><code>## Warning: package 'lattice' was built under R version 3.2.5</code></pre>
-<pre><code>## Loading required package: survival</code></pre>
-<pre><code>## Warning: package 'survival' was built under R version 3.2.5</code></pre>
-<pre><code>## Loading required package: Formula</code></pre>
-<pre><code>## 
-## Attaching package: 'Hmisc'</code></pre>
-<pre><code>## The following objects are masked from 'package:dplyr':
-## 
-##     combine, src, summarize</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     format.pval, round.POSIXt, trunc.POSIXt, units</code></pre>
+<pre class="r"><code>library(ggplot2)
+library(dplyr)
+library(mice)
+library(Hmisc)</code></pre>
 <div id="with-missing-value" class="section level1">
 <h1>With Missing value</h1>
 <p><strong>Load Data</strong></p>
-<pre class="r"><code>act &lt;- read.csv(&quot;activity.csv&quot;)</code></pre>
+<pre class="r"><code>unzip(&quot;activity.zip&quot;)
+act &lt;- read.csv(&quot;activity.csv&quot;)</code></pre>
 <p>Transform the “date”:</p>
 <pre class="r"><code>act$date &lt;- as.Date(act$date, &quot;%Y-%m-%d&quot;)</code></pre>
 <p><strong>total number of steps taken per day?</strong></p>
